@@ -79,3 +79,23 @@ app.post('/users', (req, res) => {
 function addUser(user){
     users['users_list'].push(user);
 }
+
+app.delete('/users/:id', (req, res)=>{
+    const id = req.params['id'];
+    let index = findUserIndexById(id);
+    if (index == -1)
+        res.status(410).send('User id was not found. Could not delete.');
+    else {
+        deleteUser(index);
+        res.status(200).end();
+    }
+});
+
+function findUserIndexById(id) {
+    return users['users_list'].findIndex( (user) => user['id'] === id); // or line below
+    //return users['users_list'].filter( (user) => user['id'] === id);
+}
+
+function deleteUser(index){
+    users['users_list'].splice(index, 1);
+}
