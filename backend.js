@@ -35,7 +35,7 @@ app.get('/users', (req, res) => {
     const name = req.query.name;
     const job = req.query.job;
     if (name != undefined){
-        let result = findUserByNameANDid(name, job);
+        let result = findUserByNameANDJob(name, job);
         result = {users_list: result};
         res.send(result);
     }
@@ -71,6 +71,8 @@ app.post('/users', (req, res) => {
 });
 
 function addUser(user){
+    const id = Math.floor(Math.random() * 10000);
+    user['id'] = id;
     users['users_list'].push(user);
 }
 
