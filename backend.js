@@ -66,14 +66,15 @@ function findUserById(id) {
 
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
-    addUser(userToAdd);
-    res.status(201).end();
+    const user = addUser(userToAdd);
+    res.status(201).send(user);
 });
 
 function addUser(user){
-    const id = Math.floor(Math.random() * 10000);
+    const id = (Math.floor(Math.random() * 10000));
     user['id'] = id;
     users['users_list'].push(user);
+    return user;
 }
 
 app.delete('/users/:id', (req, res)=>{
